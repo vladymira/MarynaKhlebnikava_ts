@@ -14,7 +14,7 @@
         ]
     },
     "include": [
-        "src" // или  "./src"
+        "src"
     ],
     "exclude": [
         "node_modules"
