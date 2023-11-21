@@ -1,61 +1,50 @@
-// alert('ok');
-
-// import { greet } from "./greet";
-
-// greet('Hello world!');
-
-// setTimeout(() => { greet('Ок') }, 10_000)
+import { COLORS } from "./colors";
+import { createElementByColor } from "./createElementByColor";
 
 const mainEl = document.getElementById('main');
-//mainEl.querySelectorAll('[data-color]') as NodeListOf<HTMLElement>
-// querySelectorAll по атрибуту не гарантирует возврат эл-та со св-вом style
-const spanCollection = mainEl ? Array.from(mainEl.querySelectorAll<HTMLElement>('[data-color]')) : [];
+const coloredElements = COLORS.map((color) => { createElementByColor(color) });
 
-spanCollection.forEach((spanEl) => {
-    const colorValue = spanEl.textContent;
-    if (colorValue) {
-        const paintRGB = () => {
-            spanEl.style.backgroundColor = colorValue;
-        };
+// пример
+// for (const coloredElement of coloredElements) {
+//     mainEl?.appendChild(coloredElement);
+// }
 
-        spanEl.addEventListener('click', paintRGB);
+// еще пример
+//mainEl?.append(...coloredElements);
 
-
-        setTimeout(() => {
-            spanEl.removeEventListener('click', paintRGB)
-        }, 5_000)
-
-        // spanEl.style.backgroundColor = colorValue; }, { once: true });  //once: true - если нужно однократное срабатывание
-        // spanEl.onclick = () => { spanEl.style.backgroundColor = colorValue; } - первый вариант
-    }
-
-
+// еще пример
+const fragment = document.createDocumentFragment();
+COLORS.forEach((color) => {
+    fragment.appendChild(createElementByColor(color));
 })
 
-// // вариант с удалением свойства
-// spanCollection.forEach((spanEl) => {
-//     const colorValue = spanEl.textContent;
-   
-//         function paintRGB()
-//         {
-//             if (colorValue) {
-//                 spanEl.style.setProperty('background-color', colorValue) ;
+// вар1
+mainEl?.appendChild(fragment);
 
-//                 setTimeout(() => {
-//                     spanEl.style.removeProperty('background-color')
-//                 }, 1_000)
-//             }
-            
-//         };
-
-//         spanEl.addEventListener('click', paintRGB);
+// вар2
+mainEl?.appendChild(COLORS.reduce((fragment,color)=>{
+    fragment.appendChild(createElementByColor(color));
+    return fragment;
+}, document.createDocumentFragment()))
 
 
-//         setTimeout(() => {
-//             spanEl.removeEventListener('click', paintRGB)
-//         }, 5_000)
+
+
+
+
+
+
+// mainEl?.addEventListener('click', (event) => {
+//     const targetEl = event.target as HTMLElement; // не просто базоы=вый класс, а HTMLElement
+//     const coloredEl = targetEl.closest<HTMLElement>('[data-color]'); // хотим отловить событие у span, которые раскрашиваем
+
+//     if (coloredEl) {
+//         const colorValue = coloredEl.getAttribute('data-color');
+//         coloredEl.style.setProperty('background-color', colorValue);
+
+//         //coloredEl.style.setProperty('background-color', coloredEl.textContent);
 //     }
+// });
 
 
-// )
 
