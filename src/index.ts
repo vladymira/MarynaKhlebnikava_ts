@@ -1,50 +1,18 @@
-import { COLORS } from "./colors";
-import { createElementByColor } from "./createElementByColor";
+const pizzaOrderForm = document.forms.namedItem('pizzaOrder');
 
-const mainEl = document.getElementById('main');
-const coloredElements = COLORS.map((color) => { createElementByColor(color) });
+pizzaOrderForm?.addEventListener('submit', (event) => {
+    event.preventDefault();
 
-// пример
-// for (const coloredElement of coloredElements) {
-//     mainEl?.appendChild(coloredElement);
-// }
+    const formData = new FormData(pizzaOrderForm);
 
-// еще пример
-//mainEl?.append(...coloredElements);
+    const pizzaOrder = {
+        pizzas: formData.getAll('pizza'),
+        addons: formData.getAll('addon'),
+        paymentType: formData.get('paymentType'),
+        customerName: String(formData.get('customerName')).trim(),
+        shippingAdress: String(formData.get('shippingAdress')).trim()
 
-// еще пример
-const fragment = document.createDocumentFragment();
-COLORS.forEach((color) => {
-    fragment.appendChild(createElementByColor(color));
+    };
+
+    console.log(pizzaOrder);
 })
-
-// вар1
-mainEl?.appendChild(fragment);
-
-// вар2
-mainEl?.appendChild(COLORS.reduce((fragment,color)=>{
-    fragment.appendChild(createElementByColor(color));
-    return fragment;
-}, document.createDocumentFragment()))
-
-
-
-
-
-
-
-
-// mainEl?.addEventListener('click', (event) => {
-//     const targetEl = event.target as HTMLElement; // не просто базоы=вый класс, а HTMLElement
-//     const coloredEl = targetEl.closest<HTMLElement>('[data-color]'); // хотим отловить событие у span, которые раскрашиваем
-
-//     if (coloredEl) {
-//         const colorValue = coloredEl.getAttribute('data-color');
-//         coloredEl.style.setProperty('background-color', colorValue);
-
-//         //coloredEl.style.setProperty('background-color', coloredEl.textContent);
-//     }
-// });
-
-
-
