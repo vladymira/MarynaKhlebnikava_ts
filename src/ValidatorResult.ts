@@ -1,1 +1,1 @@
-export type ValidatorResult = null | Record<string, true>
+export type ValidatorResult = null | Record<string, true> // аналог Record {[key: string]: true}
