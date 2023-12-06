@@ -5,153 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!-- <script src="index.ts"></script> -->
+    <!-- <script src="test.js"></script> -->
 
     <style>
-        .bold {
-            font-weight: bold;
 
-        }
-
-        [data-color] {
-            transition: background-color .2s linear;
-            margin-inline: 10px;
-        }
     </style>
+
 </head>
 
 <body>
 
+    <form name="test">
+        <input type="text" name="todo" id="todo" >        
+        <button type="submit" name="button">Пробуем!</button>
+    </form>
 
-    <div id="main" style="display: none;">
-        <h1>Урок по изучению цветов <span class="bold">CSS</span></h1>
-
-    </div>
-
-    <!-- <div id="main">
-        <h1>Урок по изучению цветов <span class="bold">CSS</span></h1>
-        <span data-color><i>red</i></span>
-        <span data-color><i>green</i></span>
-        <span data-color><i>blue</i></span>
-
-  
-        <span data-color="red"><i>red</i></span>
-        <span data-color="green"><i>green</i></span>
-        <span data-color="blue"><i>blue</i></span>
-    </div> -->
-    <!-- на text полагаться нельзя!!! -->
-
-    <div id="main">
-        <form novalidate id="pizzaOrder">
-            <figure>
-                <figcaption>
-                    <!-- 1 вар              
-                    <input id="pm" type="checkbox" name="pizza" value="margarita">
-                    <label for="pm">Маргарита</label> -->
-
-                    <!-- 2 вар -->
-                    <label>
-                        <input type="checkbox" name="pizza" value="margarita">
-                        <span>Маргарита</span>
-                    </label>
-                </figcaption>
-            </figure>
-
-            <figure>
-                <figcaption>
-                    <label>
-                        <input type="checkbox" name="pizza" value="pepperoni">
-                        <span>Пепперони</span>
-                    </label>
-                </figcaption>
-            </figure>
-
-            <figure>
-                <figcaption>
-                    <label>
-                        <input type="checkbox" name="pizza" value="fourSeasons">
-                        <span>Времена года</span>
-                    </label>
-                </figcaption>
-            </figure>
-
-
-            <fieldset>
-                <legend>Добавки</legend>
-
-                <div>
-                    <label>
-                        <input type="checkbox" name="addon" value="cheese">
-                        <span>Сыр</span>
-                    </label>
-                </div>
-
-                <div>
-                    <label>
-                        <input type="checkbox" name="addon" value="ham">
-                        <span>Ветчина</span>
-                    </label>
-                </div>
-
-                <div>
-                    <label>
-                        <input type="checkbox" name="addon" value="mushrooms">
-                        <span>Грибы</span>
-                    </label>
-                </div>
-            </fieldset>
-
-
-            <fieldset>
-                <legend>Способы оплаты</legend>
-
-                <div>
-                    <label>
-                        <input type="radio" required name="paymentType" value="cash">
-                        <span>Наличные</span>
-                    </label>
-                </div>
-
-                <div>
-                    <label>
-                        <input type="radio" required name="paymentType" value="card">
-                        <span>Картой</span>
-                    </label>
-                </div>
-
-                <div>
-                    <label>
-                        <input type="radio" required name="paymentType" value="online" checked="check">
-                        <span>Онлайн</span>
-                    </label>
-                </div>
-
-            </fieldset>
-
-            <fieldset>
-                <legend>Куда?</legend>
-
-                <div>
-                    <label>
-                        <span>ФИО</span>
-                        <input type="text" required name="customerName" autocomplete="name">
-                    </label>
-                </div>             
-
-                <div>
-                    <label>
-                        <span>Адрес</span>
-                        <input type="text" required name="shippingAdress" autocomplete="shipping street-address">
-                    </label>
-                </div>
-            </fieldset>
-
-            <footer>
-                <button type="submit">Заказать</button>
-            </footer>
-        </form>
-    </div>
 
 </body>
-
 
 </html>

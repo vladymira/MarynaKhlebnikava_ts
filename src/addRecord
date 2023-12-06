@@ -1,0 +1,6 @@
+import { record } from "./recordType";
+
+export function addRecord(task: record){
+
+    
+}

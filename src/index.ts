@@ -1,55 +1,37 @@
-import { FormValidator } from "./FormValidator";
-import { maxLength, nonEmptyArray, requiredText } from "./validators";
+import { record } from "./recordType";
 
-const pizzaOrderForm = document.forms.namedItem('pizzaOrder');
+// способы найти форму
+ const test1 = document.getElementsByName('test')[0];  // этот способ плох - в ts не подходит для дальнейшего new FormData, djpdhfoftn NodeList 
+ const test2 = document.forms.namedItem('test');
+// const test3 = document.forms.test; // тоже не годится для ts
 
-interface pizzaOrder {
-    pizzas: string[],
-    addons: string[],
-    paymentType: string,
-    customerName: string,
-    shippingAdress: string 
-}
-
-const pizzaOrderValidator = new FormValidator<pizzaOrder>({
-    pizzas: [
-        nonEmptyArray,
-
-    ],
-
-    paymentType: [
-        requiredText
-    ],
-
-    customerName: [
-        requiredText,
-        maxLength(100)
-    ],
-
-    shippingAdress: [
-        requiredText,
-        maxLength(200)
-    ]
-}
-
-);
-
-pizzaOrderForm?.addEventListener('submit', (event) => {
-    event.preventDefault();
-
-    const formData = new FormData(pizzaOrderForm);
-
-    const pizzaOrder: pizzaOrder = {
-        pizzas: formData.getAll('pizza') as string[],
-        addons: formData.getAll('addon') as string[],
-        paymentType:  String(formData.get('paymentType')),
-        customerName: String(formData.get('customerName')).trim(),
-        shippingAdress: String(formData.get('shippingAdress')).trim()
-
-    };
-
-    const errors = pizzaOrderValidator.validate(pizzaOrder);
+if(test2) 
+{ 
+    const button  = document.getElementsByName('button')[0];
     
-    console.log(errors);
-    console.log(pizzaOrder);
+   
+    button?.addEventListener('click', (event) => {   
+        event.preventDefault();
+  
+        //объект, представляющий данные HTML формы
+        const formData = new FormData(test2);
+        const todoText = String(formData.get('todo')).trim();         
+        let listTodo: Array<record> = [];
+
+        listTodo.push({ task: todoText, data: (new Date()).toLocaleString()});
+
+        localStorage.setItem('tasks', JSON.stringify(listTodo));
+
+
+        let p = document.createElement('p');
+	    p.textContent = localStorage.getItem('tasks');
+        test2.appendChild(p);       
+        let resetForm = <HTMLFormElement>document.getElementById('todo');
+        debugger;
+        resetForm.reset();        
+            
 })
+}
+
+
+
