@@ -8,7 +8,7 @@ const test2 = document.forms.namedItem('test');
 
 
 const data = localStorage.getItem('tasks');
-const listTodo: Array<record> = JSON.parse(data || '{}');
+const listTodo: Array<record> = JSON.parse(data || '[]');
 
 //выводим список из хранилища при первом входе/обновлении страницы
 displayLS('tasks', test2);
@@ -25,7 +25,7 @@ if (test2) {
         // считываем значение input
         const todoText = String(formData.get('todo')).trim();
         
-        //дбавляем задачу в список задач  
+        //дбавляем задачу в список задач      
         listTodo.push({ task: todoText, data: (new Date()).toLocaleString() });
 
         // перезаписываем этот список в хранилище
