@@ -1,4 +1,4 @@
-import { record } from "./recordType";
+import { Task } from "./models/Task";
 
 export function displayLS(name: string, form: HTMLFormElement| null){    
 

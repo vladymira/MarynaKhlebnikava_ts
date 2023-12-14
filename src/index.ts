@@ -1,43 +1,35 @@
-import { displayLS } from "./displayLS";
-import { record } from "./recordType";
+import { getTasks, saveTasks } from './storageUtils';
+import { renderTasks } from './renderTasks';
+import { Task } from './models/Task';
+import { TasksModel } from './models/TasksModel';
+import { todoTaskStorage } from './storage/todoTaskStorage';
+import { TaskStatus } from './models/TaskStatus';
 
-//////////////// три способа найти форму
-const test1 = document.getElementsByName('test')[0];  // этот способ плох - в ts не подходит для дальнейшего new FormData, возвращает NodeList 
-const test2 = document.forms.namedItem('test');
- //const test3 = document.forms.test; // тоже не годится для ts(Property 'test' does not exist on type 'HTMLCollectionOf<HTMLFormElement>')
+const resultsElement = document.getElementById('results')!;
+const todoForm = document.forms.namedItem('todo')!;
+const taskModel = new TasksModel(todoTaskStorage);
 
+taskModel.addEventListener('change', ()=>{
+    renderTasks(resultsElement, taskModel.tasks);
+})
 
-const data = localStorage.getItem('tasks');
-const listTodo: Array<record> = JSON.parse(data || '[]');
+todoForm.addEventListener('submit', (event) => {
+    event.preventDefault();
 
-//выводим список из хранилища при первом входе/обновлении страницы
-displayLS('tasks', test2);
-  
+    const text = String(new FormData(todoForm).get('taskText') ?? '');
+    const dueDate = String(new FormData(todoForm).get('date') ?? '');
 
-if (test2) {
-    const button = document.getElementsByName('button')[0];
+    taskModel.createTask(
+        {
+            text,
+            dueDate: new Date(dueDate).toISOString(),
+            createDate: new Date().toISOString(),
+            status: TaskStatus.NEW
+        }
+    )
 
-    button?.addEventListener('click', (event) => {
-        event.preventDefault();
+    todoForm.reset();
 
-        //объект, представляющий данные HTML формы
-        const formData = new FormData(test2);
-        // считываем значение input
-        const todoText = String(formData.get('todo')).trim();
-        
-        //дбавляем задачу в список задач      
-        listTodo.push({ task: todoText, data: (new Date()).toLocaleString() });
+});
 
-        // перезаписываем этот список в хранилище
-        localStorage.setItem('tasks', JSON.stringify(listTodo));
-
-       // выводим список из хранилища
-        displayLS('tasks', test2);
-        
-        // очищаем инпут
-        (document.getElementById('todo') as HTMLInputElement).value = '';          
-    });
-}
-
-
-
+renderTasks(resultsElement, taskModel.tasks);

@@ -1,13 +1,16 @@
 // <Value, Id> - эти типы будут исп-ся в классе
 // Id extends number | string - extends в generic ограничивает спектр принимаемых значений 
 // abstract методы обязательны к реализации в классах-наследниках
+
+import { Migration } from "./Migration";
+
 // readonly действует только в ts
 export abstract class AbstractStorage<Value extends { id: Id }, Id extends number | string, Init = void> {
     readonly #ready: Promise<Init>;
-
+   
+    //dbName: string, storeName: string, migrations: Migration[]
     constructor() {
-        this.#ready = this.init();
-
+        this.#ready = this.init();       
     }
 
     get ready(): Promise<Init> {
